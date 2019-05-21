@@ -10,10 +10,8 @@ repositories {
     maven { url 'https://jitpack.io' }
     maven {
         credentials {
-//            username System.getenv("MAVEN_USERNAME")
-//            password System.getenv("MAVEN_PASSWORD")
-            username "snooky23@applicaster-ltd"
-            password "17f4fe24e1421f7e43d5b93f14ac468a6f52e68a"
+            username System.getenv("MAVEN_USERNAME")
+            password System.getenv("MAVEN_PASSWORD")
         }
         url 'https://dl.bintray.com/applicaster-ltd/maven'
     }
@@ -64,19 +62,16 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-
     // Applicaster SDK
     def applicasterSDKPath = 'com.applicaster:applicaster-android-sdk:2.36.0'
-
-//    // Check if an open SDK is defined - if not use the closed one.
-//    def devSDK = findProject(':applicaster-android-sdk')
-//    if(devSDK != null){
-//        implementation project(path: ':applicaster-android-sdk')
-//    }
-//    else{
-//        implementation (applicasterSDKPath)
-//    }
-    implementation (applicasterSDKPath)
+    // Check if an open SDK is defined - if not use the closed one.
+    def devSDK = findProject(':applicaster-android-sdk')
+    if(devSDK != null){
+        implementation project(path: ':applicaster-android-sdk')
+    }
+    else{
+        implementation (applicasterSDKPath)
+    }
 
 }
 apply from: 'gradle/gradle-bintray-push.gradle'
