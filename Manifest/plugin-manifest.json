@@ -1,9 +1,6 @@
-// 20190519142722
-// https://zapp.applicaster.com/admin/plugin_versions/5917/plugin_manifests/ParentLockScreenPlugin?plugin_manifest_id=5917
-
 {
     "api": {
-        "class_name": "com.applicaster.plugins.ParentLockAdapter",
+        "class_name": "com.applicaster.plugins.ParentLockAdapter"
     },
     "dependency_repository_url": [
         
@@ -43,6 +40,98 @@
         }
     ],
     "general": {
-    
+        "fields": [
+            {
+                "type": "select",
+                "label_tooltip": "Please select the type of validation you want to use",
+                "key": "validation_flow_type",
+                "options": [
+                    "3",
+                    "9"
+                ]
+            },
+            {
+                "key": "background_color",
+                "label": "Screen background Color",
+                "initial_value": "#363C4A",
+                "label_tooltip": "Color for a screen backgroud",
+                "type": "color_picker"
+            },
+            {
+                "type": "color_picker",
+                "key": "indicator_normal",
+                "label": "indicator color",
+                "label_tooltip": "the background color of the indicator"
+            },
+            {
+                "type": "color_picker",
+                "key": "indicator_highlighted",
+                "label": "indicator selected color (border and fill)",
+                "label_tooltip": "the indicator background color when filled, and the indicator border color"
+            },
+            {
+                "label": "Item text font name",
+                "key": "font",
+                "initial_value": "HelveticaNeue-Bold",
+                "type": "ios_font_selector",
+                "placeholder": "Select Font"
+            }
+        ]
+    },
+    "styles": {
+        "fields": [
+            {
+                "key": "presentation",
+                "type": "hidden",
+                "initial_value": "present"
+            },
+            {
+                "key": "force_nav_bar_hidden",
+                "type": "hidden",
+                "initial_value": true
+            },
+            {
+                "type": "color_picker",
+                "key": "call_for_action_text_color"
+            },
+            {
+                "type": "number_input",
+                "key": "call_for_action_text_font_size"
+            },
+            {
+                "type": "color_picker",
+                "key": "random_numbers_color"
+            },
+            {
+                "type": "number_input",
+                "key": "random_numbers_font_size",
+                "label_tooltip": "the font size of the generated numbers text"
+            },
+            {
+                "type": "color_picker",
+                "key": "secondary_random_numbers_color",
+                "label_tooltip": "the color of the secondary generated numbers"
+            },
+            {
+                "type": "number_input",
+                "key": "secondary_random_numbers_font_size",
+                "label_tooltip": "the font size of the secondary generated numbers"
+            },
+            {
+                "type": "number_input",
+                "key": "number_font_size",
+                "label_tooltip": "the font size of the button's title label"
+            },
+            {
+                "type": "color_picker",
+                "key": "number_color",
+                "label_tooltip": "the color of the button's title label"
+            },
+            {
+                "type": "color_picker",
+                "key": "number_color_pressed",
+                "label_tooltip": "the color of the button's title label when it is pressed"
+            }
+        ]
     }
 }
