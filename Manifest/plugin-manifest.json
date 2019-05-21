@@ -3,7 +3,7 @@
 
 {
     "api": {
-        "class_name": "com.applicaster.ParentLockAdapter",
+        "class_name": "com.applicaster.plugins.ParentLockAdapter",
     },
     "dependency_repository_url": [
         
