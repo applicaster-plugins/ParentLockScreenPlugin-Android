@@ -7,7 +7,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/parent_lock_background_image"
+        android:src="@drawable/parent_lock_background_image_tablet_portrait"
         android:scaleType="centerCrop"/>
 
     <FrameLayout

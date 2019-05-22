@@ -1,3 +1,5 @@
 <resources>
     <string name="title_activity_main">MainActivity</string>
+    <string name="app_name">ParentLock</string>
+    <string name="please">Please enter the following code</string>
 </resources>
