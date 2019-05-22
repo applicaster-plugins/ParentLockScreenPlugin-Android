@@ -13,7 +13,7 @@ repositories {
 //            username System.getenv("MAVEN_USERNAME")
 //            password System.getenv("MAVEN_PASSWORD")
             username "snooky23@applicaster-ltd"
-            password "17f4fe24e1421f7e43d5b93f14ac468a6f52e68a"
+            password "5d7cd2856a3389c7f18beca987759cd2d86ddaf1"
         }
         url 'https://dl.bintray.com/applicaster-ltd/maven'
     }
@@ -64,7 +64,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-
     // Applicaster SDK
     def applicasterSDKPath = 'com.applicaster:applicaster-android-sdk:2.36.0'
 
@@ -76,7 +75,8 @@ dependencies {
 //    else{
 //        implementation (applicasterSDKPath)
 //    }
-    implementation (applicasterSDKPath)
+    implementation(applicasterSDKPath)
 
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
 }
 apply from: 'gradle/gradle-bintray-push.gradle'
