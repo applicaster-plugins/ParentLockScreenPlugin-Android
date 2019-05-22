@@ -12,8 +12,7 @@ repositories {
         credentials {
 //            username System.getenv("MAVEN_USERNAME")
 //            password System.getenv("MAVEN_PASSWORD")
-            username "snooky23@applicaster-ltd"
-            password "5d7cd2856a3389c7f18beca987759cd2d86ddaf1"
+//            
         }
         url 'https://dl.bintray.com/applicaster-ltd/maven'
     }
@@ -32,11 +31,11 @@ buildscript {
 }
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
 
     defaultConfig {
         minSdkVersion 17
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
 
