@@ -4,13 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.applicaster.hook_screen.HookScreen;
@@ -30,16 +32,24 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import static com.applicaster.hook_screen.HookScreenManager.ACTIVITY_HOOK_FAILED;
 import static com.applicaster.hook_screen.HookScreenManager.ACTIVITY_HOOK_RESULT_CODE;
 import static com.applicaster.hook_screen.HookScreenManager.HOOK_PROPS_EXTRA;
 
-public class ParentLockScreenMain  extends AppCompatActivity implements PluginScreen, HookScreen,PinLockView.PinLockListener {
+public class ParentLockScreenMain  extends Fragment implements PluginScreen, HookScreen,PinLockView.PinLockListener {
     HashMap<String, String> hookScreen = new HashMap<>();
     private Map<String, ?> hookProps;
-    HookScreenListener hookListener;
-    private HookScreenListener hookListener_;
-
+    private HookScreenListener hookListener;
+    private PinLockView mPinLockView;
+    private IndicatorDots mIndicatorDots;
+    public static int ANIMATION_DURATION = 400;
+    public static int BUTTON_COUNT = 9;
+    private int[] sequence = new int[3];
+    private String[] numbers = new String[]{"z", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+    private TextView sequenceText;
+    private View mFrame;
+    private TextView sequenceText_2;
+    private View mBack9;
+    private View mBack3;
 
     @Override
     public void present(Context context, HashMap<String, Object> screenMap, Serializable dataSource, boolean isActivity) {
@@ -57,7 +67,7 @@ public class ParentLockScreenMain  extends AppCompatActivity implements PluginSc
     @NotNull
     @Override
     public HashMap<String, String> getHook() {
-        return null;
+        return this.hookScreen;
     }
 
     @Override
@@ -68,11 +78,18 @@ public class ParentLockScreenMain  extends AppCompatActivity implements PluginSc
     //execute hook
     @Override
     public void executeHook(@NotNull Context context, @NotNull HookScreenListener hookScreenListener, @Nullable Map<String, ?> map) {
-        hookListener_ = hookScreenListener;
-
-        Intent intent = new Intent(context, this.getClass());
-        startActivityForResult(intent, context, map);
         hookProps = map;
+
+        hookListener = hookScreenListener;
+//        hookListener.hookCompleted((Map<String, Object>) hookProps);
+//
+//        Intent intent = new Intent(context, this.getClass());
+//        startActivityForResult(intent, context, map);
+        FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim. exit_to_left, R.anim.enter_from_right,R.anim.slide_out_right, R.anim.slide_in_right);
+        transaction.replace(R.id.content_frame, this);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     private void startActivityForResult(Intent intent, Context context, Map<String, ?> hookProps) {
@@ -114,42 +131,32 @@ public class ParentLockScreenMain  extends AppCompatActivity implements PluginSc
     }
 
 
-    private PinLockView mPinLockView;
-    private IndicatorDots mIndicatorDots;
-    public static int ANIMATION_DURATION = 400;
-    public static int BUTTON_COUNT = 9;
-    private int[] sequence = new int[3];
-    private String[] numbers = new String[]{"z", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
-    private TextView sequenceText;
-    private View mFrame;
-    private TextView sequenceText_2;
-    private View mBack9;
-    private View mBack3;
+
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(com.applicaster.web.plugins.iai.R.layout.activity_main);
-        hookProps = convertHookMap(getIntent().getStringExtra(HOOK_PROPS_EXTRA));
-        mPinLockView = (PinLockView) findViewById(com.applicaster.web.plugins.iai.R.id.pin_lock_view);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.activity_main, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @android.support.annotation.Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mPinLockView = (PinLockView) view.findViewById(R.id.pin_lock_view);
         mPinLockView.setDigitLength(BUTTON_COUNT);
-        mIndicatorDots = (IndicatorDots) findViewById(com.applicaster.web.plugins.iai.R.id.indicator_dots);
-        sequenceText = (TextView) findViewById(com.applicaster.web.plugins.iai.R.id.text_2);
-        sequenceText_2 = (TextView) findViewById(com.applicaster.web.plugins.iai.R.id.text_3);
-        sequenceText_2.setVisibility(View.GONE);
-        findViewById(com.applicaster.web.plugins.iai.R.id.imageView_close).setOnClickListener(new View.OnClickListener() {
+        mIndicatorDots = (IndicatorDots) view.findViewById(R.id.indicator_dots);
+        sequenceText = (TextView) view.findViewById(R.id.text_2);
+        sequenceText_2 = (TextView) view.findViewById(R.id.text_3);
+        view.findViewById(R.id.imageView_close).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendActivityResult(ParentLockScreenMain.this, hookProps, ACTIVITY_HOOK_FAILED);
+                hookListener.hookCompleted(null);
             }
         });
-        mFrame = findViewById(com.applicaster.web.plugins.iai.R.id.frame);
-        mBack9 = findViewById(com.applicaster.web.plugins.iai.R.id.calulator_image_9);
-        mBack3 = findViewById(com.applicaster.web.plugins.iai.R.id.calulator_image_3);
+        mFrame = view.findViewById(R.id.frame);
+        mBack9 = view.findViewById(R.id.calulator_image_9);
+        mBack3 = view.findViewById(R.id.calulator_image_3);
         mPinLockView.attachIndicatorDots(mIndicatorDots);
         if (BUTTON_COUNT == 3) {
             mBack3.setVisibility(View.VISIBLE);
@@ -158,10 +165,8 @@ public class ParentLockScreenMain  extends AppCompatActivity implements PluginSc
         }
         mPinLockView.setPinLockListener(this);
         generateRandom();
-
-
-
     }
+
 
     private void generateRandom() {
         Random r = new Random();
@@ -180,7 +185,7 @@ public class ParentLockScreenMain  extends AppCompatActivity implements PluginSc
         } else {
             if (pin.equals("" + sequence[0] + sequence[1] + sequence[2])) {
 //                hookListener.hookFailed((Map<String, Object>) hookProps);
-                hookListener_.hookCompleted((Map<String, Object>) hookProps);
+                hookListener.hookCompleted((Map<String, Object>) hookProps);
 //                sendActivityResult(this, hookProps, ACTIVITY_HOOK_COMPLETED);
             } else {
                 setTextColor(sequenceText, R.color.red);
@@ -191,7 +196,7 @@ public class ParentLockScreenMain  extends AppCompatActivity implements PluginSc
     }
 
     private void setTextColor(TextView sequenceText, int color) {
-        sequenceText.setTextColor(ContextCompat.getColor(this, color));
+        sequenceText.setTextColor(ContextCompat.getColor(getContext(), color));
     }
     private void sendActivityResult(Activity activity, Map<String,?> hookProps, int hookResult) {
         Intent returnIntent = new Intent();
@@ -202,4 +207,6 @@ public class ParentLockScreenMain  extends AppCompatActivity implements PluginSc
     private Map<String,Object> convertHookMap(String hookString) {
         return new Gson().fromJson(hookString, new TypeToken<Map<String, Object>>() {}.getType());
     }
+
+
 }
