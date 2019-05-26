@@ -151,7 +151,8 @@ public class ParentLockScreenMain  extends Fragment implements PluginScreen, Hoo
         view.findViewById(R.id.imageView_close).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hookListener.hookCompleted(null);
+//                hookListener.hookCompleted(null);
+                hookListener.hookFailed(null);
             }
         });
         mFrame = view.findViewById(R.id.frame);
