@@ -10,9 +10,8 @@ repositories {
     maven { url 'https://jitpack.io' }
     maven {
         credentials {
-//            username System.getenv("MAVEN_USERNAME")
-//            password System.getenv("MAVEN_PASSWORD")
-//            
+            username System.getenv("MAVEN_USERNAME")
+            password System.getenv("MAVEN_PASSWORD")
         }
         url 'https://dl.bintray.com/applicaster-ltd/maven'
     }
@@ -64,17 +63,17 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // Applicaster SDK
-    def applicasterSDKPath = 'com.applicaster:applicaster-android-sdk:2.36.0'
-
-//    // Check if an open SDK is defined - if not use the closed one.
-//    def devSDK = findProject(':applicaster-android-sdk')
-//    if(devSDK != null){
-//        implementation project(path: ':applicaster-android-sdk')
-//    }
-//    else{
-//        implementation (applicasterSDKPath)
-//    }
-    implementation(applicasterSDKPath)
+//    def applicasterSDKPath = 'com.applicaster:applicaster-android-sdk:2.36.0'
+    def applicasterSDKPath = 'com.applicaster:applicaster-android-sdk:2.33.15'
+    // Check if an open SDK is defined - if not use the closed one.
+    def devSDK = findProject(':applicaster-android-sdk')
+    if(devSDK != null){
+        implementation project(path: ':applicaster-android-sdk')
+    }
+    else{
+        implementation (applicasterSDKPath)
+    }
+//    implementation(applicasterSDKPath)
 
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
 }
