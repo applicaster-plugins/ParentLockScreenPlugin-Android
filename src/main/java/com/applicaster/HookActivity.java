@@ -1,6 +1,7 @@
 package com.applicaster;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.applicaster.pinlockview.IndicatorDots;
@@ -46,31 +48,12 @@ public class HookActivity extends AppCompatActivity  implements PinLockView.PinL
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_main);
-        hookProps = convertHookMap(getIntent().getStringExtra(HOOK_PROPS_EXTRA));
-        mPinLockView = (PinLockView) findViewById(R.id.pin_lock_view);
-        mPinLockView.setDigitLength(BUTTON_COUNT);
-        mIndicatorDots = (IndicatorDots) findViewById(R.id.indicator_dots);
-        sequenceText = (TextView) findViewById(R.id.text_2);
-        sequenceText_2 = (TextView) findViewById(R.id.text_3);
-        sequenceText_2.setVisibility(View.GONE);
-        findViewById(R.id.imageView_close).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendActivityResult(HookActivity.this, hookProps, ACTIVITY_HOOK_FAILED);
-            }
-        });
-        mFrame = findViewById(R.id.frame);
-        mBack9 = findViewById(R.id.calulator_image_9);
-        mBack3 = findViewById(R.id.calulator_image_3);
-        mPinLockView.attachIndicatorDots(mIndicatorDots);
-        if (BUTTON_COUNT == 3) {
-            mBack3.setVisibility(View.VISIBLE);
-        }else {
-            mBack9.setVisibility(View.VISIBLE);
-        }
-        mPinLockView.setPinLockListener(this);
-        generateRandom();
+        setContentView(R.layout.activity_m);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.item_detail_container, new ParentLockScreenMain(), "ff")
+                .disallowAddToBackStack()
+                .commit();
 
 
 

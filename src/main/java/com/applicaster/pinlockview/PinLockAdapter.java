@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.applicaster.CustomizationOptionsBundle;
 import com.applicaster.web.plugins.iai.R;
 
 import java.util.ArrayList;
@@ -24,7 +25,6 @@ public class PinLockAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private static final int VIEW_TYPE_NUMBER = 0;
 
     private Context mContext;
-    private CustomizationOptionsBundle mCustomizationOptionsBundle;
     private OnNumberClickListener mOnNumberClickListener;
     private int mPinLength;
 
@@ -65,13 +65,13 @@ public class PinLockAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             setTextcolor(holder.mNumberButton, R.color.perp_digit);
 
-            if (mCustomizationOptionsBundle != null) {
-                holder.mNumberButton.setTextColor(mCustomizationOptionsBundle.getTextColor());
+            if (CustomizationOptionsBundle.getInstance() != null) {
+                holder.mNumberButton.setTextColor(CustomizationOptionsBundle.getInstance().getTextColor());
                 holder.mNumberButton.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                        mCustomizationOptionsBundle.getTextSize());
+                        CustomizationOptionsBundle.getInstance().getTextSize());
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        mCustomizationOptionsBundle.getButtonSize(),
-                        mCustomizationOptionsBundle.getButtonSize());
+                        CustomizationOptionsBundle.getInstance().getButtonSize(),
+                        CustomizationOptionsBundle.getInstance().getButtonSize());
                 holder.mNumberButton.setLayoutParams(params);
             }
         }
@@ -103,9 +103,6 @@ public class PinLockAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.mOnNumberClickListener = onNumberClickListener;
     }
 
-    public void setCustomizationOptions(CustomizationOptionsBundle customizationOptionsBundle) {
-        this.mCustomizationOptionsBundle = customizationOptionsBundle;
-    }
 
     public class NumberViewHolder extends RecyclerView.ViewHolder {
         Button mNumberButton;

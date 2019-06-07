@@ -9,6 +9,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
+import com.applicaster.CustomizationOptionsBundle;
 import com.applicaster.web.plugins.iai.R;
 
 import java.util.ArrayList;
@@ -28,7 +29,6 @@ public class PinLockView extends RecyclerView {
     private IndicatorDots mIndicatorDots;
     private PinLockAdapter mAdapter;
     private PinLockListener mPinLockListener;
-    private CustomizationOptionsBundle mCustomizationOptionsBundle;
 
     private PinLockAdapter.OnNumberClickListener mOnNumberClickListener
             = new PinLockAdapter.OnNumberClickListener() {
@@ -90,10 +90,9 @@ public class PinLockView extends RecyclerView {
             typedArray.recycle();
         }
 
-        mCustomizationOptionsBundle = new CustomizationOptionsBundle();
-        mCustomizationOptionsBundle.setTextColor(mTextColor);
-        mCustomizationOptionsBundle.setTextSize(mTextSize);
-        mCustomizationOptionsBundle.setButtonSize(mButtonSize);
+        CustomizationOptionsBundle.getInstance().setTextColor(mTextColor);
+        CustomizationOptionsBundle.getInstance().setTextSize(mTextSize);
+        CustomizationOptionsBundle.getInstance().setButtonSize(mButtonSize);
 
         initView();
     }
@@ -104,7 +103,6 @@ public class PinLockView extends RecyclerView {
         mAdapter = new PinLockAdapter(getContext());
         mAdapter.setKeyValues(keySet(BUTTON_COUNT));
         mAdapter.setOnItemClickListener(mOnNumberClickListener);
-        mAdapter.setCustomizationOptions(mCustomizationOptionsBundle);
         setAdapter(mAdapter);
 
         addItemDecoration(new ItemSpaceDecoration(mHorizontalSpacing, mVerticalSpacing, 3));
