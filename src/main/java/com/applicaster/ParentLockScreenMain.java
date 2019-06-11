@@ -236,7 +236,8 @@ public class ParentLockScreenMain extends Fragment implements PluginScreen, Hook
             @Override
             public void onClick(View v) {
 //                hookListener.hookCompleted(null);
-                hookListener.hookFailed((Map<String, Object>) hookProps);
+//                hookListener.hookFailed((Map<String, Object>) hookProps);
+                ((AppCompatActivity)getContext()).onBackPressed();
             }
         });
         mFrame = view.findViewById(R.id.frame);
