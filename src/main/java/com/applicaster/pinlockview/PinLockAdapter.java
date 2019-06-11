@@ -2,7 +2,6 @@ package com.applicaster.pinlockview;
 
 import android.content.Context;
 import android.graphics.drawable.TransitionDrawable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -63,8 +62,6 @@ public class PinLockAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             TransitionDrawable transition = (TransitionDrawable) holder.mNumberButton.getBackground();
             transition.resetTransition();
 
-            setTextcolor(holder.mNumberButton, R.color.perp_digit);
-
             if (CustomizationOptionsBundle.getInstance() != null) {
                 holder.mNumberButton.setTextColor(CustomizationOptionsBundle.getInstance().getTextColor());
                 holder.mNumberButton.setTextSize(TypedValue.COMPLEX_UNIT_PX,
@@ -76,7 +73,6 @@ public class PinLockAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }
         }
     }
-
 
     @Override
     public int getItemCount() {
@@ -110,7 +106,8 @@ public class PinLockAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public NumberViewHolder(final View itemView) {
             super(itemView);
             mNumberButton = itemView.findViewById(R.id.button);
-            setTextcolor(mNumberButton, R.color.perp_digit);
+            mNumberButton.setTypeface(CustomizationOptionsBundle.getInstance().getTextFont());
+            setTextcolor(mNumberButton, CustomizationOptionsBundle.getInstance().getTextColor());
             mNumberButton.setBackgroundResource(R.drawable.digit_back);
 
             mNumberButton.setOnClickListener(new View.OnClickListener() {
@@ -118,8 +115,7 @@ public class PinLockAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 public void onClick(View v) {
                     TransitionDrawable transition = (TransitionDrawable) mNumberButton.getBackground();
                     transition.startTransition(ANIMATION_DURATION);
-//                    mNumberButton.setBackgroundesource(R.drawable.number_btn_selected_bg);
-                    setTextcolor(mNumberButton, R.color.white);
+                    setTextcolor(mNumberButton, CustomizationOptionsBundle.getInstance().getTextColorSelected());
 
                     if (mOnNumberClickListener != null) {
                         mOnNumberClickListener.onNumberClicked((Integer) v.getTag());
@@ -135,7 +131,7 @@ public class PinLockAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     private void setTextcolor(TextView sequenceText, int color) {
-        sequenceText.setTextColor(ContextCompat.getColor(mContext, color));
+        sequenceText.setTextColor( color);
 
     }
 }

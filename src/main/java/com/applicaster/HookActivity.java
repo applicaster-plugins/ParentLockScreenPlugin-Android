@@ -1,7 +1,6 @@
 package com.applicaster;
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -9,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.applicaster.pinlockview.IndicatorDots;
@@ -22,7 +20,6 @@ import java.util.Map;
 import java.util.Random;
 
 import static com.applicaster.hook_screen.HookScreenManager.ACTIVITY_HOOK_COMPLETED;
-import static com.applicaster.hook_screen.HookScreenManager.ACTIVITY_HOOK_FAILED;
 import static com.applicaster.hook_screen.HookScreenManager.HOOK_PROPS_EXTRA;
 
 public class HookActivity extends AppCompatActivity  implements PinLockView.PinLockListener{
@@ -31,7 +28,6 @@ public class HookActivity extends AppCompatActivity  implements PinLockView.PinL
     private PinLockView mPinLockView;
     private IndicatorDots mIndicatorDots;
     public static int ANIMATION_DURATION = 400;
-    public static int BUTTON_COUNT = 9;
     private int[] sequence = new int[3];
     private String[] numbers = new String[]{"z", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
     private TextView sequenceText;
@@ -62,7 +58,7 @@ public class HookActivity extends AppCompatActivity  implements PinLockView.PinL
     private void generateRandom() {
         Random r = new Random();
         for (int i = 0; i < 3; i++) {
-            sequence[i] = r.nextInt(BUTTON_COUNT) + 1;
+            sequence[i] = r.nextInt(CustomizationOptionsBundle.getInstance().getButtonCount()) + 1;
         }
         sequenceText.setText("" + numbers[sequence[0]] + ", " + numbers[sequence[1]] + ", " + numbers[sequence[2]]);
         sequenceText_2.setText("" + numbers[sequence[0]] + ", " + numbers[sequence[1]] + ", " + numbers[sequence[2]]);

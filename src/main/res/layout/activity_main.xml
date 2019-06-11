@@ -1,60 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/frame_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
+
     <ImageView
+        android:id="@+id/parent_lock_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/parent_lock_background_image"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:src="@drawable/parent_lock_background_image" />
+
 
     <FrameLayout
         android:id="@+id/frame"
         android:layout_width="290dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        >
+        android:layout_gravity="center">
+
         <ImageView
             android:id="@+id/calulator_image_9"
             android:layout_width="280dp"
             android:layout_height="330dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:visibility="gone"
             android:src="@drawable/background_image_1_9"
+            android:visibility="gone"
 
             />
+
         <ImageView
             android:id="@+id/calulator_image_3"
             android:layout_width="280dp"
             android:layout_height="210dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:visibility="gone"
             android:src="@drawable/background_image_1_3"
+            android:visibility="gone"
 
             />
+
         <LinearLayout
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:orientation="vertical"
-            >
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/text_1"
+                android:layout_marginTop="45dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:maxLines="1"
-                android:layout_marginTop="45dp"
                 android:text="@string/please"
-                android:textStyle="bold"
-                android:textColor="@color/perp_text"
                 android:textSize="15dp" />
 
             <TextView
@@ -75,9 +77,9 @@
                 android:fontFamily="sans-serif-thin"
                 android:gravity="center"
                 android:maxLines="1"
-                android:visibility="gone"
                 android:textColor="@color/gray_text_3"
-                android:textSize="12dp" />
+                android:textSize="12dp"
+                android:visibility="gone" />
 
             <com.applicaster.pinlockview.IndicatorDots
                 android:id="@+id/indicator_dots"

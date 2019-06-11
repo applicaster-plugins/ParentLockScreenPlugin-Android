@@ -1,5 +1,7 @@
 package com.applicaster;
 
+import android.graphics.Typeface;
+
 public class CustomizationOptionsBundle {
 
 
@@ -13,10 +15,14 @@ public class CustomizationOptionsBundle {
         return instance;
     }
 
-    private int textColor;
-    private int textSize;
+    private Typeface textFont;
     private int buttonSize;
-
+    private int textSize;
+    private int textColor;
+    private int textColorSelected;
+    private int indicatorNormal;
+    private int indicatorSelected;
+    private int buttonCount;
 
     public int getTextColor() {
         return textColor;
@@ -34,12 +40,56 @@ public class CustomizationOptionsBundle {
         this.textSize = textSize;
     }
 
+    public Typeface getTextFont() {
+        return textFont;
+    }
+
+    public void setTextFont(Typeface textFont) {
+        this.textFont = textFont;
+    }
+
     public int getButtonSize() {
         return buttonSize;
     }
 
     public void setButtonSize(int buttonSize) {
         this.buttonSize = buttonSize;
+    }
+
+
+
+    public int getTextColorSelected() {
+        return textColorSelected;
+    }
+
+    public void setTextColorSelected(int textColorSelected) {
+        this.textColorSelected = textColorSelected;
+    }
+
+
+
+    public int getIndicatorNormal() {
+        return indicatorNormal;
+    }
+
+    public void setIndicatorNormal(int indicatorNormal) {
+        this.indicatorNormal = indicatorNormal;
+    }
+
+    public int getIndicatorSelected() {
+        return indicatorSelected;
+    }
+
+    public void setIndicatorSelected(int indicatorSelected) {
+        this.indicatorSelected = indicatorSelected;
+    }
+
+    public int getButtonCount() {
+        return buttonCount;
+    }
+
+    public void setButtonCount(int buttonCount) {
+        this.buttonCount = buttonCount;
     }
 }
 

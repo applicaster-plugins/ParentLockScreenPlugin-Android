@@ -15,7 +15,6 @@ import com.applicaster.web.plugins.iai.R;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static com.applicaster.HookActivity.BUTTON_COUNT;
 
 
 public class PinLockView extends RecyclerView {
@@ -81,18 +80,22 @@ public class PinLockView extends RecyclerView {
         TypedArray typedArray = getContext().obtainStyledAttributes(attributeSet, R.styleable.PinLockView);
 
         try {
+            mDigitLength = CustomizationOptionsBundle.getInstance().getButtonCount();
             mHorizontalSpacing = (int) typedArray.getDimension(R.styleable.PinLockView_keypadHorizontalSpacing, getDimensionInPx(getContext(), R.dimen.default_horizontal_spacing));
             mVerticalSpacing = (int) typedArray.getDimension(R.styleable.PinLockView_keypadVerticalSpacing, getDimensionInPx(getContext(), R.dimen.default_vertical_spacing));
             mTextColor = typedArray.getColor(R.styleable.PinLockView_keypadTextColor, ContextCompat.getColor(getContext(), R.color.perp));
             mTextSize = (int) typedArray.getDimension(R.styleable.PinLockView_keypadTextSize, getDimensionInPx(getContext(), R.dimen.default_text_size));
             mButtonSize = (int) typedArray.getDimension(R.styleable.PinLockView_keypadButtonSize, getDimensionInPx(getContext(), R.dimen.default_button_size));
+
+            mTextColor = com.applicaster.CustomizationOptionsBundle.getInstance().getTextColor();
+            mTextSize = CustomizationOptionsBundle.getInstance().getTextSize();
+
+
         } finally {
             typedArray.recycle();
         }
 
-        CustomizationOptionsBundle.getInstance().setTextColor(mTextColor);
-        CustomizationOptionsBundle.getInstance().setTextSize(mTextSize);
-        CustomizationOptionsBundle.getInstance().setButtonSize(mButtonSize);
+
 
         initView();
     }
@@ -101,7 +104,7 @@ public class PinLockView extends RecyclerView {
         setLayoutManager(new GridLayoutManager(getContext(), 3));
 
         mAdapter = new PinLockAdapter(getContext());
-        mAdapter.setKeyValues(keySet(BUTTON_COUNT));
+        mAdapter.setKeyValues(keySet(CustomizationOptionsBundle.getInstance().getButtonCount()));
         mAdapter.setOnItemClickListener(mOnNumberClickListener);
         setAdapter(mAdapter);
 

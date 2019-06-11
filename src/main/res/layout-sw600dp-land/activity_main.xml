@@ -3,12 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/frame_layout_image_image"
+
     >
     <ImageView
+        android:id="@+id/parent_lock_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/parent_lock_background_image_tablet_landscape"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:src="@drawable/parent_lock_background_image_tablet_landscape" />
+
+
 
     <FrameLayout
         android:id="@+id/frame"
