@@ -206,17 +206,22 @@ public class ParentLockScreenMain extends Fragment implements PluginScreen, Hook
     }
 
     private int colorFromString(String number_color) {
-        if (number_color==null) return Color.parseColor("#eeeeee");
-        return Color.parseColor(number_color);
+        try{
+            return Color.parseColor(number_color);
+        }catch (Exception e){}
+        return Color.parseColor("#eeeeee");
+
     }
 
     private int pxFromDP_String(String textSize) {
-        if (textSize==null) return (int) (metrics.density * 15);
+        try{
+            int dp = Integer.parseInt(textSize);
+            float fpixels = metrics.density * dp;
+            int pixels = (int) (fpixels + 0.5f);
+            return pixels;
+        }catch (Exception e){}
 
-        int dp = Integer.parseInt(textSize);
-        float fpixels = metrics.density * dp;
-        int pixels = (int) (fpixels + 0.5f);
-        return pixels;
+        return  (int) (metrics.density * 15);
     }
 
     @Override
