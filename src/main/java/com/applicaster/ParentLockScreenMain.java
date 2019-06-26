@@ -145,45 +145,21 @@ public class ParentLockScreenMain extends Fragment implements PluginScreen, Hook
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Map<String, ?> screenMap = ((new Gson()).fromJson(hookScreen.get("screenMap"), LinkedTreeMap.class));
+        styles = getDefaultStyles();
+        generalStyles = getDefaultGeneralStyles();
 
-        styles = (LinkedTreeMap) screenMap.get("styles");
-        generalStyles = (LinkedTreeMap) screenMap.get("general");
-
-//        Gson gson = new Gson();
-//        String yourJson = "{\n" +
-//                "      \"random_numbers_font_size\": \"22\",\n" +
-//                "      \"secondary_random_numbers_font_weight\": \"Billy\",\n" +
-//                "      \"number_buttons_selected_background_color\": \"#ff9013fe\",\n" +
-//                "      \"call_for_action_text_color\": \"#000000\",\n" +
-//                "      \"family\": \"FAMILY_1\",\n" +
-//                "      \"number_buttons_background_color\": \"#ffffffff\",\n" +
-//                "      \"force_nav_bar_hidden\": true,\n" +
-//                "      \"call_for_action_text_font_weight\": \"Billy\",\n" +
-//                "      \"secondary_random_numbers_font_size\": \"14\",\n" +
-//                "      \"number_color\": \"#ff444444\",\n" +
-//                "      \"number_color_pressed\": \"#ffffff\",\n" +
-//                "      \"call_for_action_text_font_size\": \"16\",\n" +
-//                "      \"number_font_weight\": \"Billy-Bold\",\n" +
-//                "      \"random_numbers_color\": \"#ff0000\",\n" +
-//                "      \"random_numbers_font_weight\": \"Billy\",\n" +
-//                "      \"presentation\": \"push\",\n" +
-//                "      \"number_font_size\": \"25\",\n" +
-//                "      \"secondary_random_numbers_color\": \"#ff0000\"\n" +
-//                "    }";
-//        String general = "{\n" +
-//                "      \"validation_flow_type\": \"3\",\n" +
-//                "      \"background_color\": \"#ff0000\",\n" +
-//                "      \"background_type\": \"image\",\n" +
-//                "      \"indicator_normal\": \"#eeeeee\",\n" +
-//                "      \"indicator_highlighted\": \"#000000\",\n" +
-//                "      \"background_image\": \"Visible\"\n" +
-//                "    }";
-
+        if(hookScreen != null){
+            String screenMapString = hookScreen.get("screenMap");
+            if(screenMapString != null){
+                Map screenMap = (new Gson().fromJson(screenMapString, LinkedTreeMap.class));
+                if (screenMap != null){
+                    styles.putAll( (LinkedTreeMap) screenMap.get("styles"));
+                    generalStyles.putAll((LinkedTreeMap) screenMap.get("general"));
+                }
+            }
+        }
 
         metrics = getContext().getResources().getDisplayMetrics();
-//        styles = gson.fromJson(yourJson, LinkedTreeMap.class);
-//        generalStyles = gson.fromJson(general, LinkedTreeMap.class);
         CustomizationOptionsBundle.getInstance().setButtonSize(pxFromDP_String("35"));
 
 
@@ -206,6 +182,40 @@ public class ParentLockScreenMain extends Fragment implements PluginScreen, Hook
 
 
         return inflater.inflate(R.layout.activity_main, container, false);
+    }
+
+    private LinkedTreeMap getDefaultStyles(){
+        LinkedTreeMap map =  new LinkedTreeMap<>();
+        map.put("random_numbers_font_size", "14");
+        map.put("secondary_random_numbers_font_weight", "SFUIText-LightItalic");
+        map.put("number_buttons_selected_background_color", "#ff9261E2");
+        map.put("call_for_action_text_color", "#9632F7");
+        map.put("family", "FAMILY_1");
+        map.put("number_buttons_background_color", "#ff9261E2");
+        map.put("force_nav_bar_hidden", true);
+        map.put("call_for_action_text_font_weight", "SFUIText-Medium");
+        map.put("secondary_random_numbers_font_size", "12");
+        map.put("number_color", "#9356E8");
+        map.put("number_color_pressed", "#ffffff");
+        map.put("call_for_action_text_font_size", "15");
+        map.put("number_font_weight", "Billy-Light");
+        map.put("random_numbers_color", "#C6A4FF");
+        map.put("random_numbers_font_weight", "SFUIText-Regular");
+        map.put("presentation", "push");
+        map.put("number_font_size", "25");
+        map.put("secondary_random_numbers_color", "#9F9F9F");
+        return map;
+    }
+
+    private LinkedTreeMap getDefaultGeneralStyles(){
+        LinkedTreeMap map =  new LinkedTreeMap();
+        map.put("validation_flow_type", "3");
+        map.put("background_color", "#ff0000");
+        map.put("background_type", "image");
+        map.put("indicator_normal", "#ffffff");
+        map.put("indicator_highlighted", "#9261E2");
+        map.put("background_image", "Visible");
+        return map;
     }
 
     private int colorFromString(String number_color) {
