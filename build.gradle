@@ -63,7 +63,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // Applicaster SDK
-//    def applicasterSDKPath = 'com.applicaster:applicaster-android-sdk:2.36.0'
     def applicasterSDKPath = 'com.applicaster:applicaster-android-sdk:2.33.15'
     // Check if an open SDK is defined - if not use the closed one.
     def devSDK = findProject(':applicaster-android-sdk')
@@ -73,7 +72,17 @@ dependencies {
     else{
         implementation (applicasterSDKPath)
     }
-//    implementation(applicasterSDKPath)
+
+    // Zapp-Root
+    def zappRootSDKPath = 'com.applicaster:zapp-root-android:4.2.1'
+    // Check if an open SDK is defined - if not use the closed one.
+    def rootDev = findProject(':zapp_root')
+    if(rootDev != null){
+        implementation project(path: ':zapp_root')
+    }
+    else{
+        implementation (zappRootSDKPath)
+    }
 
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
 }
