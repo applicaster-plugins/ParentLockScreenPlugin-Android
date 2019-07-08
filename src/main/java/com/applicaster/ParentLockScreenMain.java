@@ -26,6 +26,7 @@ import com.applicaster.pinlockview.PinLockView;
 import com.applicaster.plugin_manager.screen.PluginScreen;
 import com.applicaster.util.StringUtil;
 import com.applicaster.web.plugins.iai.R;
+import com.applicaster.zapproot.RootActivityManager;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
@@ -97,7 +98,7 @@ public class ParentLockScreenMain extends Fragment implements PluginScreen, Hook
 //        startActivityForResult(intent, context, map);
         FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.fade_in, R.anim.slide_down);
-        transaction.replace(R.id.content_frame, this);
+        transaction.replace(((RootActivityManager.NavigationListener)context).getFragmentContainerID(), this);
         transaction.addToBackStack(null);
         transaction.commit();
     }
