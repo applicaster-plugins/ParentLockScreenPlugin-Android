@@ -16,7 +16,7 @@ import com.applicaster.web.plugins.iai.R;
 
 import java.util.ArrayList;
 
-import static com.applicaster.HookActivity.ANIMATION_DURATION;
+import static com.applicaster.Constants.ANIMATION_DURATION;
 
 
 public class PinLockAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

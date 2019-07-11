@@ -6,7 +6,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -14,19 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.applicaster.hook_screen.HookScreenListener;
 import com.applicaster.pinlockview.IndicatorDots;
 import com.applicaster.pinlockview.PinLockView;
 import com.applicaster.util.StringUtil;
 import com.applicaster.web.plugins.iai.R;
-import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
-public class ParentLockScreenMainNew extends Fragment implements PinLockView.PinLockListener {
+public class ParentLockFragment extends Fragment implements PinLockView.PinLockListener {
     DisplayMetrics metrics;
     private PinLockView mPinLockView;
     private IndicatorDots mIndicatorDots;
@@ -62,8 +57,8 @@ public class ParentLockScreenMainNew extends Fragment implements PinLockView.Pin
 
     }
 
-    ParentLockScreenMainNew getInstance(LinkedTreeMap styles, LinkedTreeMap generalStyles){
-        ParentLockScreenMainNew fragment = new ParentLockScreenMainNew();
+    public static ParentLockFragment getInstance(LinkedTreeMap styles, LinkedTreeMap generalStyles){
+        ParentLockFragment fragment = new ParentLockFragment();
 
         Bundle bundle = new Bundle();
         bundle.putSerializable(STYLES_KEY, styles);

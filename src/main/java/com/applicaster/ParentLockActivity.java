@@ -14,7 +14,7 @@ import java.util.Map;
 import static com.applicaster.hook_screen.HookScreenManager.ACTIVITY_HOOK_COMPLETED;
 import static com.applicaster.hook_screen.HookScreenManager.ACTIVITY_HOOK_FAILED;
 
-public class ParentLockActivity extends AppCompatActivity implements ParentLockScreenMainNew.ParentLockListener {
+public class ParentLockActivity extends AppCompatActivity implements ParentLockFragment.ParentLockListener {
 
     public static final String HOOK_DATA = "screen data";
 
@@ -23,8 +23,8 @@ public class ParentLockActivity extends AppCompatActivity implements ParentLockS
         super.onCreate(savedInstanceState);
 
         Map<String, String> hookScreen = (Map<String, String>)getIntent().getSerializableExtra(HOOK_DATA);
-        Map styles = getDefaultStyles();
-        Map generalStyles = getDefaultGeneralStyles();
+        LinkedTreeMap styles = getDefaultStyles();
+        LinkedTreeMap generalStyles = getDefaultGeneralStyles();
 
         if(hookScreen != null){
             String screenMapString = hookScreen.get("screenMap");
@@ -40,7 +40,7 @@ public class ParentLockActivity extends AppCompatActivity implements ParentLockS
         setContentView(com.applicaster.web.plugins.iai.R.layout.activity_m);
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.item_detail_container, new ParentLockScreenMainNew(), "ff")
+                .add(R.id.item_detail_container, ParentLockFragment.getInstance(styles, generalStyles), "ff")
                 .disallowAddToBackStack()
                 .commit();
     }
