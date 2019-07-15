@@ -24,7 +24,7 @@ import static com.applicaster.hook_screen.HookScreenManager.HOOK_PROPS_EXTRA;
 public class ParentLockScreenMain implements PluginScreen, HookScreen  {
 
     HookScreenListener hookListener;
-    HashMap<String, String> hookData = new HashMap<>();;
+    HashMap<String, String> hookData = new HashMap<>();
 
     //Plugin Screen methods
     @Override
