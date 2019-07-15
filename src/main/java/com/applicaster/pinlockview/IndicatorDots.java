@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import com.applicaster.CustomizationOptionsBundle;
 import com.applicaster.web.plugins.iai.R;
 
-import static com.applicaster.ParentLockScreenMain.ANIMATION_DURATION;
+import static com.applicaster.Constants.ANIMATION_DURATION;
 
 
 public class IndicatorDots extends LinearLayout {

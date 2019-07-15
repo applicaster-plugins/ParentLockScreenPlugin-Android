@@ -2,7 +2,7 @@ package com.applicaster;
 
 import android.graphics.Typeface;
 
-public class CustomizationOptionsBundle {
+public class   CustomizationOptionsBundle {
 
 
     private static final CustomizationOptionsBundle instance = new CustomizationOptionsBundle();

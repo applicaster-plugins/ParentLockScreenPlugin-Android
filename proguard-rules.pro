@@ -21,7 +21,7 @@
 #-renamesourcefileattribute SourceFile
 
 #-----------Adapter------------#
--keep public class com.funtoad.FuntoadAdapter {
-   public <fields>;
-   public <methods>;
+-keep public class com.applicaster.ParentLockScreenMain {
+    public <fields>;
+    public <methods>;
 }
