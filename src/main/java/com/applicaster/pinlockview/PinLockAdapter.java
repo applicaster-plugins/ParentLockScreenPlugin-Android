@@ -1,10 +1,10 @@
 package com.applicaster.pinlockview;
 
 import android.content.Context;
-import android.graphics.drawable.TransitionDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -58,9 +58,7 @@ public class PinLockAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             holder.mNumberButton.setText(String.valueOf(mKeyValues.get(position)));
             holder.mNumberButton.setVisibility(View.VISIBLE);
             holder.mNumberButton.setTag(mKeyValues.get(position));
-            holder.mNumberButton.setBackgroundResource(R.drawable.digit_back);
-            TransitionDrawable transition = (TransitionDrawable) holder.mNumberButton.getBackground();
-            transition.resetTransition();
+            holder.mNumberButton.setBackgroundResource(R.drawable.number_btn_not_selected_bg);
 
             if (CustomizationOptionsBundle.getInstance() != null) {
                 holder.mNumberButton.setTextColor(CustomizationOptionsBundle.getInstance().getTextColor());
@@ -108,14 +106,36 @@ public class PinLockAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             mNumberButton = itemView.findViewById(R.id.button);
             mNumberButton.setTypeface(CustomizationOptionsBundle.getInstance().getTextFont());
             setTextcolor(mNumberButton, CustomizationOptionsBundle.getInstance().getTextColor());
-            mNumberButton.setBackgroundResource(R.drawable.digit_back);
+            mNumberButton.setBackgroundResource(R.drawable.number_btn_not_selected_bg);
+
+
+            mNumberButton.setOnTouchListener(new View.OnTouchListener() {
+
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+
+                    switch (event.getAction()){
+                        case MotionEvent.ACTION_DOWN:{
+                            mNumberButton.setBackgroundResource(R.drawable.number_btn_selected_bg);
+                            mNumberButton.setTextColor(CustomizationOptionsBundle.getInstance().getTextColorSelected());
+                            return false;
+                        }
+                        case MotionEvent.ACTION_CANCEL:
+                        case MotionEvent.ACTION_UP: {
+                            mNumberButton.setBackgroundResource(R.drawable.number_btn_not_selected_bg);
+                            mNumberButton.setTextColor(CustomizationOptionsBundle.getInstance().getTextColor());
+                            return false;
+                        }
+                    }
+
+                    return false;
+                }
+
+            });
 
             mNumberButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    TransitionDrawable transition = (TransitionDrawable) mNumberButton.getBackground();
-                    transition.startTransition(ANIMATION_DURATION);
-                    setTextcolor(mNumberButton, CustomizationOptionsBundle.getInstance().getTextColorSelected());
 
                     if (mOnNumberClickListener != null) {
                         mOnNumberClickListener.onNumberClicked((Integer) v.getTag());
