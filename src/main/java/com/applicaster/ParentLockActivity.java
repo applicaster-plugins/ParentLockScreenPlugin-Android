@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.applicaster.plugin_manager.login.LoginContract;
+import com.applicaster.plugin_manager.login.LoginManager;
 import com.applicaster.web.plugins.iai.R;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
@@ -17,6 +19,7 @@ import static com.applicaster.hook_screen.HookScreenManager.ACTIVITY_HOOK_FAILED
 public class ParentLockActivity extends AppCompatActivity implements ParentLockFragment.ParentLockListener {
 
     public static final String HOOK_DATA = "screen data";
+    private boolean useLoginPlugin = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,12 +40,19 @@ public class ParentLockActivity extends AppCompatActivity implements ParentLockF
             }
         }
 
-        setContentView(com.applicaster.web.plugins.iai.R.layout.activity_m);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.item_detail_container, ParentLockFragment.getInstance(styles, generalStyles), "ff")
-                .disallowAddToBackStack()
-                .commit();
+        useLoginPlugin = getIntent().getBooleanExtra(ParentLockScreenMain.USE_LOGIN_PLUGIN, false);
+        LoginContract loginPlugin = LoginManager.getLoginPlugin();
+        if (useLoginPlugin && loginPlugin != null && loginPlugin.isTokenValid()) {
+            sendActivityResult(true);
+        }
+        else {
+            setContentView(com.applicaster.web.plugins.iai.R.layout.activity_m);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.item_detail_container, ParentLockFragment.getInstance(styles, generalStyles), "ff")
+                    .disallowAddToBackStack()
+                    .commit();
+        }
     }
 
     @Override
