@@ -7,7 +7,8 @@ import android.support.v4.app.Fragment;
 
 import com.applicaster.hook_screen.HookScreen;
 import com.applicaster.hook_screen.HookScreenListener;
-import com.applicaster.plugin_manager.PluginI;
+import com.applicaster.plugin_manager.GenericPluginI;
+import com.applicaster.plugin_manager.Plugin;
 import com.applicaster.plugin_manager.screen.PluginScreen;
 import com.google.gson.Gson;
 
@@ -22,13 +23,13 @@ import static com.applicaster.ParentLockActivity.HOOK_DATA;
 import static com.applicaster.hook_screen.HookScreenManager.ACTIVITY_HOOK_RESULT_CODE;
 import static com.applicaster.hook_screen.HookScreenManager.HOOK_PROPS_EXTRA;
 
-public class ParentLockScreenMain implements PluginScreen, HookScreen, PluginI {
+public class ParentLockScreenMain implements PluginScreen, HookScreen, GenericPluginI {
 
     public static final String USE_LOGIN_PLUGIN = "use_login_plugin";
 
     HookScreenListener hookListener;
     HashMap<String, String> hookData = new HashMap<>();
-    private HashMap<String, String> pluginConfiguration = new HashMap<>();
+    private static HashMap<String, String> pluginConfiguration = new HashMap<>();
 
     //Plugin Screen methods
     @Override
@@ -88,8 +89,6 @@ public class ParentLockScreenMain implements PluginScreen, HookScreen, PluginI {
     public void setHook(@NotNull HashMap<String, String> hashMap) {
         this.hookData = hashMap;
     }
-    //
-
 
     private void startActivityForResult(Intent intent, Activity activity, Map<String,?> hookProps) {
         if (hookProps != null) {
@@ -98,16 +97,16 @@ public class ParentLockScreenMain implements PluginScreen, HookScreen, PluginI {
         activity.startActivityForResult(intent, ACTIVITY_HOOK_RESULT_CODE);
     }
 
-    @Override
-    public void setPluginConfigurationParams(Map params) {
-        pluginConfiguration.putAll(params);
-    }
-
     private String getValue(Map params, String key) {
         String returnVal = "";
         if (params != null && params.get(key) != null) {
             returnVal = params.get(key).toString();
         }
         return returnVal;
+    }
+
+    @Override
+    public void setPluginModel(Plugin plugin) {
+        pluginConfiguration.putAll(plugin.configuration);
     }
 }
