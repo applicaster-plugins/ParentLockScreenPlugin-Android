@@ -23,13 +23,10 @@ import static com.applicaster.ParentLockActivity.HOOK_DATA;
 import static com.applicaster.hook_screen.HookScreenManager.ACTIVITY_HOOK_RESULT_CODE;
 import static com.applicaster.hook_screen.HookScreenManager.HOOK_PROPS_EXTRA;
 
-public class ParentLockScreenMain implements PluginScreen, HookScreen, GenericPluginI {
-
-    public static final String USE_LOGIN_PLUGIN = "use_login_plugin";
+public class ParentLockScreenMain implements PluginScreen, HookScreen {
 
     HookScreenListener hookListener;
     HashMap<String, String> hookData = new HashMap<>();
-    private static HashMap<String, String> pluginConfiguration = new HashMap<>();
 
     //Plugin Screen methods
     @Override
@@ -68,7 +65,6 @@ public class ParentLockScreenMain implements PluginScreen, HookScreen, GenericPl
     public void executeHook(@NotNull Context context, @NotNull HookScreenListener hookListener, @Nullable Map<String, ?> hookProps) {
         this.hookListener = hookListener;
         Intent intent = new Intent(context, ParentLockActivity.class);
-        intent.putExtra(USE_LOGIN_PLUGIN, getValue(pluginConfiguration, USE_LOGIN_PLUGIN).equals("1"));
         intent.putExtra(HOOK_DATA, hookData);
         startActivityForResult(intent, (Activity)context, hookProps);
     }
@@ -95,18 +91,5 @@ public class ParentLockScreenMain implements PluginScreen, HookScreen, GenericPl
             intent.putExtra(HOOK_PROPS_EXTRA, new Gson().toJson(hookProps));
         }
         activity.startActivityForResult(intent, ACTIVITY_HOOK_RESULT_CODE);
-    }
-
-    private String getValue(Map params, String key) {
-        String returnVal = "";
-        if (params != null && params.get(key) != null) {
-            returnVal = params.get(key).toString();
-        }
-        return returnVal;
-    }
-
-    @Override
-    public void setPluginModel(Plugin plugin) {
-        pluginConfiguration.putAll(plugin.configuration);
     }
 }

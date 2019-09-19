@@ -18,6 +18,7 @@ import static com.applicaster.hook_screen.HookScreenManager.ACTIVITY_HOOK_FAILED
 
 public class ParentLockActivity extends AppCompatActivity implements ParentLockFragment.ParentLockListener {
 
+    public static final String USE_LOGIN_PLUGIN = "use_login_plugin";
     public static final String HOOK_DATA = "screen data";
     private boolean useLoginPlugin = false;
 
@@ -38,9 +39,9 @@ public class ParentLockActivity extends AppCompatActivity implements ParentLockF
                     generalStyles.putAll((LinkedTreeMap) screenMap.get("general"));
                 }
             }
+            useLoginPlugin = "true".equals(generalStyles.get(USE_LOGIN_PLUGIN));
         }
 
-        useLoginPlugin = getIntent().getBooleanExtra(ParentLockScreenMain.USE_LOGIN_PLUGIN, false);
         LoginContract loginPlugin = LoginManager.getLoginPlugin();
         if (useLoginPlugin && loginPlugin != null && loginPlugin.isTokenValid()) {
             sendActivityResult(true);
