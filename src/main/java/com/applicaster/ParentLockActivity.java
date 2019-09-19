@@ -39,7 +39,7 @@ public class ParentLockActivity extends AppCompatActivity implements ParentLockF
                     generalStyles.putAll((LinkedTreeMap) screenMap.get("general"));
                 }
             }
-            useLoginPlugin = "true".equals(generalStyles.get(USE_LOGIN_PLUGIN));
+            useLoginPlugin = (boolean) generalStyles.get(USE_LOGIN_PLUGIN);
         }
 
         LoginContract loginPlugin = LoginManager.getLoginPlugin();
