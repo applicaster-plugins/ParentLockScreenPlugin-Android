@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +17,15 @@ import android.widget.TextView;
 import com.applicaster.pinlockview.IndicatorDots;
 import com.applicaster.pinlockview.PinLockView;
 import com.applicaster.util.StringUtil;
+import com.applicaster.util.TextUtil;
 import com.applicaster.web.plugins.iai.R;
 import com.google.gson.internal.LinkedTreeMap;
 
 import java.util.Random;
 
 public class ParentLockFragment extends Fragment implements PinLockView.PinLockListener {
+    private static String TAG = ParentLockFragment.class.getSimpleName();
+
     DisplayMetrics metrics;
     private PinLockView mPinLockView;
     private IndicatorDots mIndicatorDots;
@@ -180,10 +184,7 @@ public class ParentLockFragment extends Fragment implements PinLockView.PinLockL
     }
 
     private Typeface getFontSafely(String key) {
-        try{
-            return Typeface.createFromAsset(getContext().getAssets(),"fonts/"+(String) styles.get(key)+".otf");
-        }catch (Exception e){}
-        return null;
+        return TextUtil.getTypefaceFromFontKey((String)styles.get(key));
     }
 
 
