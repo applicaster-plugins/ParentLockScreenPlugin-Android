@@ -79,10 +79,7 @@ public class ParentLockFragment extends Fragment implements PinLockView.PinLockL
         styles = (LinkedTreeMap)getArguments().getSerializable(STYLES_KEY);
         generalStyles = (LinkedTreeMap)getArguments().getSerializable(GENERAL_STYLE_KEY);
 
-
         metrics = getContext().getResources().getDisplayMetrics();
-        CustomizationOptionsBundle.getInstance().setButtonSize(pxFromDP_String("35"));
-
 
         String number_font_size = (String) styles.get("number_font_size");
         String number_color = (String) styles.get("number_color");
