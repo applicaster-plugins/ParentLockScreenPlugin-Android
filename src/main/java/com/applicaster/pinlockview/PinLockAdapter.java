@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.applicaster.CustomizationOptionsBundle;
@@ -55,19 +56,17 @@ public class PinLockAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private void configureNumberButtonHolder(NumberViewHolder holder, int position) {
         if (holder != null) {
-            holder.mNumberButton.setText(String.valueOf(mKeyValues.get(position)));
+            holder.mNumberText.setText(String.valueOf(mKeyValues.get(position)));
             holder.mNumberButton.setVisibility(View.VISIBLE);
             holder.mNumberButton.setTag(mKeyValues.get(position));
             holder.mNumberButton.setBackgroundResource(R.drawable.number_btn_not_selected_bg);
 
             if (CustomizationOptionsBundle.getInstance() != null) {
-                holder.mNumberButton.setTextColor(CustomizationOptionsBundle.getInstance().getTextColor());
-                holder.mNumberButton.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+
+                holder.mNumberText.setTextColor(CustomizationOptionsBundle.getInstance().getTextColor());
+                holder.mNumberText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                         CustomizationOptionsBundle.getInstance().getTextSize());
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        CustomizationOptionsBundle.getInstance().getButtonSize(),
-                        CustomizationOptionsBundle.getInstance().getButtonSize());
-                holder.mNumberButton.setLayoutParams(params);
+
             }
         }
     }
@@ -99,13 +98,15 @@ public class PinLockAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
 
     public class NumberViewHolder extends RecyclerView.ViewHolder {
-        Button mNumberButton;
+        View mNumberButton;
+        TextView mNumberText;
 
         public NumberViewHolder(final View itemView) {
             super(itemView);
             mNumberButton = itemView.findViewById(R.id.button);
-            mNumberButton.setTypeface(CustomizationOptionsBundle.getInstance().getTextFont());
-            setTextcolor(mNumberButton, CustomizationOptionsBundle.getInstance().getTextColor());
+            mNumberText = itemView.findViewById(R.id.textNumber);
+            mNumberText.setTypeface(CustomizationOptionsBundle.getInstance().getTextFont());
+            setTextcolor(mNumberText, CustomizationOptionsBundle.getInstance().getTextColor());
             mNumberButton.setBackgroundResource(R.drawable.number_btn_not_selected_bg);
 
 
@@ -117,13 +118,13 @@ public class PinLockAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     switch (event.getAction()){
                         case MotionEvent.ACTION_DOWN:{
                             mNumberButton.setBackgroundResource(R.drawable.number_btn_selected_bg);
-                            mNumberButton.setTextColor(CustomizationOptionsBundle.getInstance().getTextColorSelected());
+                            mNumberText.setTextColor(CustomizationOptionsBundle.getInstance().getTextColorSelected());
                             return false;
                         }
                         case MotionEvent.ACTION_CANCEL:
                         case MotionEvent.ACTION_UP: {
                             mNumberButton.setBackgroundResource(R.drawable.number_btn_not_selected_bg);
-                            mNumberButton.setTextColor(CustomizationOptionsBundle.getInstance().getTextColor());
+                            mNumberText.setTextColor(CustomizationOptionsBundle.getInstance().getTextColor());
                             return false;
                         }
                     }
