@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.applicaster.plugin_manager.login.LoginContract;
 import com.applicaster.plugin_manager.login.LoginManager;
+import com.applicaster.util.ui.APUIUtils;
 import com.applicaster.web.plugins.iai.R;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
@@ -25,6 +26,8 @@ public class ParentLockActivity extends AppCompatActivity implements ParentLockF
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        APUIUtils.setOrientation(this);
 
         Map<String, String> hookScreen = (Map<String, String>)getIntent().getSerializableExtra(HOOK_DATA);
         LinkedTreeMap styles = getDefaultStyles();
